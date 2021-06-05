@@ -7,11 +7,14 @@ import * as _ from 'lodash';
 import { map, catchError } from 'rxjs/operators';
 import { GenericService } from './services/generic.service';
 import { TempModel } from './models/temp-type-model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class TempConversionService {
 
-  constructor(private genericService: GenericService) { }
+  constructor(private genericService: GenericService,
+    private http: HttpClient,
+    @Inject('BASE_URL') private baseUrl: string ) { }
 
   public convertTemperature(payload: TempModel): Observable<TempModel> {
     
@@ -21,6 +24,12 @@ export class TempConversionService {
         return res;
       }));
     
+  }
+
+  public convertTemperature2(payload: any, actionPath: string, options: any) {
+    return this.http.post(this.baseUrl + actionPath, payload, options).
+      subscribe((res) => console.log(res),
+        (err) => console.log(err));
   }
 
   public getTemperature(): Observable<TempModel> {

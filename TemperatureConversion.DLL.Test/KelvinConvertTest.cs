@@ -29,7 +29,7 @@ namespace TemperatureConversion.DLL.Test.Unit
         {
             double outValue = _kelvinConvert.ConvertToCelsius(100);
 
-            Assert.Equal(-173, outValue, 2);
+            Assert.Equal(-173, outValue, 5);
 
 
         }

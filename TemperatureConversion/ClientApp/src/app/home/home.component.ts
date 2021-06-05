@@ -56,32 +56,28 @@ export class HomeComponent {
 
 
   onSubmit(customerData) {
-    this.tempModel.inputType = this.createConversionForm.controls.inputType.value;
-    this.tempModel.inputValue = this.createConversionForm.controls.inputValue.value;
+    this.tempModel.inputType = customerData.inputType;
+    this.tempModel.inputValue = +customerData.inputValue;
     this.tempModel.outputValue = 0;
-    this.tempModel.outputType = this.createConversionForm.controls.outputType.value;
-
-
-    this.tempConversionService.getTemperature().subscribe(result => {
-      //this.tempModel = result;
-    }, error => console.error(error));
-
+    this.tempModel.outputType = customerData.outputType;
 
     this.tempConversionService.convertTemperature(this.tempModel).subscribe(result => {
       this.tempModel = result;
-    }, error => console.error(error));
+      this.createConversionForm.controls.outputValue.setValue(this.tempModel.outputValue);
+    });
+    
+  }
 
-
-    // Process checkout data here
-    console.warn('Your order has been submitted', customerData);
+  onClear() {
+    this.createConversionForm.controls.outputValue.setValue(0);
+    this.createConversionForm.controls.inputValue.setValue(0);
   }
 
   public getErrorMessage(control: any) {
     return control.hasError('required') ? 'You must enter a value' :
-      control.hasError('maxLength') ? 'Not a valid value excied mac length' :
-        control.hasError('email') ? 'Not a valid email' :
+      control.hasError('maxLength') ? 'not valid value:  max size 10' :        
           control.hasError('pattern') ? 'value must be number' :
-          'not valid value';
+          'not valid value:  max size 10';
   }
 
   public shouldShowErrors(control: any): boolean | any {

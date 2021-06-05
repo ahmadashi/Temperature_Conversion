@@ -46,12 +46,14 @@ namespace TemperatureConversion.Controllers
         }
 
 
-        [HttpPost]
-        //[Route("ConvertTemperature")]        
-        public ActionResult ConvertTemperature([FromBody] TempConversion tempConversion)
+        
+        [Route("ConvertTemperature")]        
+        public  ActionResult ConvertTemperature([FromBody] TempConversion tempConversion)
         {
             try
             {
+                // to do : add more validation 
+                // to do : move this to new end point (create secuired web API to perform the calculation, and just call it from here )
                 if(tempConversion==null)
                 {
                     _logger.LogError("Error: invalied input data");
@@ -61,23 +63,31 @@ namespace TemperatureConversion.Controllers
                 switch(tempConversion.inputType)
                 {
                     case "Celsius":
-                        tempConversion.outputValue = convertFromCelsius(tempConversion);
-                        break;
+                        {
+                            tempConversion.outputValue = convertFromCelsius(tempConversion);
+                            break;
+                        }
                     case "Fahrenheit":
-                        tempConversion.outputValue = convertFromFahrenheit(tempConversion);
-                        break;
+                        {
+                            tempConversion.outputValue = convertFromFahrenheit(tempConversion);
+                            break;
+                        }
                     case "Kelvin":
-                        tempConversion.outputValue = convertFromKelvin(tempConversion);
-                        break;
+                        {
+                            tempConversion.outputValue = convertFromKelvin(tempConversion);
+                            break;
+                        }
                     default:
-                        _logger.LogError("Error: invalied input type");
-                        return StatusCode(StatusCodes.Status500InternalServerError);
+                        {
+                            _logger.LogError("Error: invalied input type");
+                            return StatusCode(StatusCodes.Status500InternalServerError);
+                        }
 
                 }
 
 
 
-                return Ok(tempConversion);
+                return  Ok(tempConversion);
             }
             
             catch (Exception ex)
@@ -96,8 +106,10 @@ namespace TemperatureConversion.Controllers
                 case "Fahrenheit":
                     return (_kelvinConvert.ConvertToFahrenheit(tempConversion.inputValue));                    
                 default:
-                    _logger.LogError("Error: invalied out type");
-                    throw new Exception("Error: invalied out type");
+                    {
+                        _logger.LogError("Error: invalied out type");
+                        throw new Exception("Error: invalied out type");
+                    }
             }
             
         }
@@ -111,8 +123,10 @@ namespace TemperatureConversion.Controllers
                 case "Kelvin":
                     return (_fahrenheitConvert.ConvertToKelvin(tempConversion.inputValue));
                 default:
-                    _logger.LogError("Error: invalied out type");
-                    throw new Exception("Error: invalied out type");
+                    {
+                        _logger.LogError("Error: invalied out type");
+                        throw new Exception("Error: invalied out type");
+                    }
             }
         }
 
@@ -125,8 +139,10 @@ namespace TemperatureConversion.Controllers
                 case "Fahrenheit":
                     return (_celsiusConvert.ConvertToFahrenheit(tempConversion.inputValue));
                 default:
-                    _logger.LogError("Error: invalied out type");
-                    throw new Exception("Error: invalied out type");
+                    {
+                        _logger.LogError("Error: invalied out type");
+                        throw new Exception("Error: invalied out type");
+                    }
             }
         }
     }
