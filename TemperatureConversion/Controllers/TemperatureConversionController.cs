@@ -31,22 +31,12 @@ namespace TemperatureConversion.Controllers
             _kelvinConvert = kelvinConvert;
         }
 
-        [HttpGet]
-        public IEnumerable<TempConversion> Get()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new TempConversion
-            {
-                inputType = "C",
-                inputValue = 105,
-                outputType = "F",
-                outputValue = 3550,
-            })
-            .ToArray();
-        }
 
-
-        
+        /// <summary>
+        /// end point for conversion not secuired 
+        /// </summary>
+        /// <param name="tempConversion"></param>
+        /// <returns></returns>
         [Route("ConvertTemperature")]        
         public  ActionResult ConvertTemperature([FromBody] TempConversion tempConversion)
         {
@@ -97,6 +87,12 @@ namespace TemperatureConversion.Controllers
             }
         }
 
+        /// <summary>
+        /// convert From Kelvin
+        /// </summary>
+        /// <param name="tempConversion"></param>
+        /// <returns></returns>
+
         private double convertFromKelvin(TempConversion tempConversion)
         {
             switch (tempConversion.outputType)
@@ -113,7 +109,11 @@ namespace TemperatureConversion.Controllers
             }
             
         }
-
+        /// <summary>
+        /// convert From Fahrenheit
+        /// </summary>
+        /// <param name="tempConversion"></param>
+        /// <returns></returns>
         private double convertFromFahrenheit(TempConversion tempConversion)
         {
             switch (tempConversion.outputType)
@@ -130,6 +130,11 @@ namespace TemperatureConversion.Controllers
             }
         }
 
+        /// <summary>
+        /// convert From Celsius
+        /// </summary>
+        /// <param name="tempConversion"></param>
+        /// <returns></returns>
         private double convertFromCelsius(TempConversion tempConversion)
         {
             switch (tempConversion.outputType)
