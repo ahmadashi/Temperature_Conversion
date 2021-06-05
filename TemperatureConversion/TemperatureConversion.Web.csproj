@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TemperatureConversion.DLL\TemperatureConversion.DLL.csproj" />
     <ProjectReference Include="..\TemperatureConversion.ViewModel\TemperatureConversion.ViewModel.csproj" />
   </ItemGroup>
 

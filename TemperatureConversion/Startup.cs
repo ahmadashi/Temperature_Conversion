@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TemperatureConversion.DLL.Convert;
 
 namespace TemperatureConversion
 {
@@ -26,6 +27,10 @@ namespace TemperatureConversion
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddTransient<ICelsiusConvert, CelsiusConvert>();
+            services.AddTransient<IFahrenheitConvert, FahrenheitConvert>();
+            services.AddTransient<IKelvinConvert, KelvinConvert>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

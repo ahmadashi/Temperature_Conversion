@@ -6,10 +6,10 @@ namespace TemperatureConversion.ViewModel
     {
         public double inputValue { get; set; }
 
-        public string inputUnit { get; set; }
+        public string inputType { get; set; }
 
-        public double OutputValue { get; set; }
+        public double outputValue { get; set; }
 
-        public string OutputUnit { get; set; }
+        public string outputType { get; set; }
     }
 }

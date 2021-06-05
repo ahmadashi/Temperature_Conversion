@@ -1,5 +1,5 @@
 
-<p>Welcome to your new single-page application, built with:</p>
+<!--<p>Welcome to your new single-page application, built with:</p>
 
 <p>To help you get started, we've also set up:</p>
 <ul>
@@ -7,11 +7,68 @@
   <li><strong>Angular CLI integration</strong>. In development mode, there's no need to run <code>ng serve</code>. It runs in the background automatically, so your client-side resources are dynamically built on demand and the page refreshes when you modify any file.</li>
   <li><strong>Efficient production builds</strong>. In production mode, development-time features are disabled, and your <code>dotnet publish</code> configuration automatically invokes <code>ng build</code> to produce minified, ahead-of-time compiled JavaScript files.</li>
 </ul>
-<p>The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p>
+<p>The <code>ClientApp</code> subdirectory is a standard Angular CLI application. If you open a command prompt in that directory, you can run any <code>ng</code> command (e.g., <code>ng test</code>), or use <code>npm</code> to install extra packages into it.</p>-->
 
-<div class="mat-sidenav">
-  <mat-slider min="1" max="100" step="1" value="1"></mat-slider>
 
-</div>
+
+
+
+<form [formGroup]="createConversionForm" (ngSubmit)="onSubmit(createConversionForm.value)">
+   
+
+  <mat-card fxFlex fxFlexAlign="start">
+    <p>Temperature Convert</p>
+
+    <mat-card-content>
+      <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="5px">
+
+        <mat-form-field color="primary" appearance="outline" fxFlex="calc(50% - 25px)">
+          <mat-label>From Temperature Type</mat-label>
+          <mat-select [formControl]="createConversionForm.controls.inputType" required>            
+            <mat-option *ngFor="let temp of tempTypes" [value]="temp">
+              {{temp}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="shouldShowErrors(createConversionForm.controls.inputType)">{{getErrorMessage(createConversionForm.controls.inputType)}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field color="primary" appearance="outline" fxFlex="calc(50% - 25px)">
+          <mat-label>From Value</mat-label>
+          <input OnlyNumber="true" matInput placeholder="Temperature to Convert" [formControl]="createConversionForm.controls.inputValue" formControlName="inputValue" required>
+          <mat-error *ngIf="shouldShowErrors(createConversionForm.controls.inputValue)">{{getErrorMessage(createConversionForm.controls.inputValue)}}</mat-error>
+        </mat-form-field>
+
+
+      </div>
+
+      <div fxLayout fxLayout.xs="column wrap" fxLayoutGap="5px">
+
+        <mat-form-field color="primary" appearance="outline" fxFlex="calc(50% - 25px)">
+          <mat-label>To Temperature Type</mat-label>
+          <mat-select [formControl]="createConversionForm.controls.outputType" required>            
+            <mat-option *ngFor="let temp of tempTypes" [value]="temp">
+              {{temp}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="shouldShowErrors(createConversionForm.controls.outputType)">{{getErrorMessage(createConversionForm.controls.outputType)}}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field color="primary" appearance="outline" fxFlex="calc(50% - 25px)">
+          <mat-label>Temperature</mat-label>
+          <input matInput placeholder="Temperature to Convert" [readonly]="true" [disabled]="true" [formControl]="createConversionForm.controls.outputValue" formControlName="outputValue">
+        </mat-form-field>
+
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Clear</button>
+      <button mat-raised-button color="primary" [disabled]="!createConversionForm.valid" type="submit">Create</button>
+    </mat-card-actions>
+  </mat-card>
+
+
+
+</form>
 
 
