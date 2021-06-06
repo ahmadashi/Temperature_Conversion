@@ -38,13 +38,14 @@ namespace TemperatureConversion.Controllers
         /// <param name="tempConversion"></param>
         /// <returns></returns>
         [Route("ConvertTemperature")]        
-        public  ActionResult ConvertTemperature([FromBody] TempConversion tempConversion)
+        public  ActionResult ConvertTemperature([FromBody] TempConversionVM tempConversion)
         {
             try
             {
                 // to do : add more validation 
-                // to do : move this to new end point (create secuired web API to perform the calculation, and just call it from here )
-                if(tempConversion==null)
+                // to do : move this logic into another class library (performConversion Method) and create untit testing for it  
+                // to do : create another secuired web API, to call the new created class library (performConversion) and just call the new secure end point from here )
+                if (tempConversion==null)
                 {
                     _logger.LogError("Error: invalied input data");
                     return StatusCode(StatusCodes.Status500InternalServerError);
@@ -93,7 +94,7 @@ namespace TemperatureConversion.Controllers
         /// <param name="tempConversion"></param>
         /// <returns></returns>
 
-        private double convertFromKelvin(TempConversion tempConversion)
+        private double convertFromKelvin(TempConversionVM tempConversion)
         {
             switch (tempConversion.outputType)
             {
@@ -114,7 +115,7 @@ namespace TemperatureConversion.Controllers
         /// </summary>
         /// <param name="tempConversion"></param>
         /// <returns></returns>
-        private double convertFromFahrenheit(TempConversion tempConversion)
+        private double convertFromFahrenheit(TempConversionVM tempConversion)
         {
             switch (tempConversion.outputType)
             {
@@ -135,7 +136,7 @@ namespace TemperatureConversion.Controllers
         /// </summary>
         /// <param name="tempConversion"></param>
         /// <returns></returns>
-        private double convertFromCelsius(TempConversion tempConversion)
+        private double convertFromCelsius(TempConversionVM tempConversion)
         {
             switch (tempConversion.outputType)
             {

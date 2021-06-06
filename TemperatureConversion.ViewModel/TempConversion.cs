@@ -2,7 +2,7 @@
 
 namespace TemperatureConversion.ViewModel
 {
-    public class TempConversion
+    public class TempConversionVM
     {
         public double inputValue { get; set; }
 
